@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>💖 Valentine?</title>
+
+  <style>
+    :root{
+      --bg1:#ff8fab;
+      --bg2:#590d22;
+      --glass: rgba(255,255,255,0.18);
+      --glassBorder: rgba(255,255,255,0.22);
+      --shadow: rgba(0,0,0,0.45);
+      --yes:#ff4d6d;
+      --yesHover:#ff2f56;
+      --txt:#ffffff;
+    }
+    *{ box-sizing: border-box; }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: radial-gradient(circle at top, var(--bg1), var(--bg2));
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+      color:var(--txt);
+      overflow:hidden;
+      padding: 26px;
+    }
+
+    .card{
+      position:relative;
+      width:min(780px, 94vw);
+      min-height: 440px;
+      padding: 56px 54px;
+      border-radius: 30px;
+      background: var(--glass);
+      border: 1px solid var(--glassBorder);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 28px 80px var(--shadow);
+      text-align:center;
+      z-index:2;
+      animation: fadeUp 0.9s ease;
+    }
+
+    h1{
+      margin: 6px 0 10px;
+      font-size: clamp(34px, 3.4vw, 54px);
+      line-height: 1.05;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    p{
+      margin: 0 auto 26px;
+      max-width: 52ch;
+      font-size: clamp(18px, 1.6vw, 24px);
+      line-height: 1.45;
+      opacity: 0.95;
+    }
+
+    .buttons{
+      display:flex;
+      justify-content:center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    button{
+      border:none;
+      border-radius: 999px;
+      padding: 16px 34px;
+      font-size: 18px;
+      cursor:pointer;
+      transition: transform 0.20s ease, box-shadow 0.20s ease, background 0.20s ease;
+      user-select:none;
+      will-change: transform;
+    }
+
+    button:hover{
+      box-shadow: 0 12px 26px rgba(0,0,0,0.30);
+      transform: translateY(-2px);
+    }
+
+    .yes{ background: var(--yes); color:#fff; }
+    .yes:hover{ background: var(--yesHover); }
+
+    .no{
+      background: rgba(255,255,255,0.22);
+      color: #fff;
+      position: relative;
+    }
+
+    .answer{
+      margin-top: 28px;
+      display:none;
+      font-size: clamp(20px, 2.0vw, 28px);
+      animation: pop 0.55s ease;
+    }
+
+    .hint{
+      margin-top: 14px;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    /* Musiikki-nappi */
+    .music{
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 3;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.22);
+      backdrop-filter: blur(10px);
+      cursor:pointer;
+      font-size: 14px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+      user-select:none;
+    }
+
+    .musicDot{
+      width: 10px; height: 10px;
+      border-radius: 99px;
+      background: rgba(255,255,255,0.7);
+    }
+    .musicDot.playing{ animation: pulse 1.1s infinite; }
+
+    .side-gif{
+      position: fixed;
+      left: 300px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 200px;
+      max-width: 35vw;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      z-index: 1;
+    }
+
+    .side-image{
+      position: fixed;
+      right: 300px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 220px;
+      max-width: 40vw;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+      border: 2px solid rgba(255,255,255,0.25);
+      z-index: 1;
+      opacity: 0.95;
+    }
+
+    @media (max-width: 900px){
+      .side-gif, .side-image{ display:none; }
+    }
+
+    /* ✅ Hearts */
+    .heart{
+      position: fixed;
+      bottom: -40px;
+      opacity: 0.9;
+      animation: floatUp linear forwards;
+      filter: drop-shadow(0 8px 14px rgba(0,0,0,0.25));
+      pointer-events: none;
+      z-index: 9999;
+      will-change: transform, opacity;
+    }
+
+    @keyframes floatUp{
+      from { transform: translateY(0) scale(1); opacity: 0.95; }
+      to   { transform: translateY(-120vh) scale(1.6); opacity: 0; }
+    }
+    @keyframes fadeUp{
+      from { opacity:0; transform: translateY(22px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+    @keyframes pop{
+      0% { opacity:0; transform: scale(0.88); }
+      100% { opacity:1; transform: scale(1); }
+    }
+    @keyframes pulse{
+      0%{ box-shadow: 0 0 0 0 rgba(255,255,255,0.40); }
+      100%{ box-shadow: 0 0 0 12px rgba(255,255,255,0.00); }
+    }
+
+    @media (max-width: 520px){
+      body{ padding: 18px; }
+      .card{
+        padding: 44px 22px;
+        min-height: 420px;
+        border-radius: 26px;
+      }
+      button{
+        width: 100%;
+        max-width: 320px;
+        padding: 16px 18px;
+      }
+      .music{ right: 12px; bottom: 12px; }
+    }
+  </style>
+</head>
+
+<body>
+  <img src="hearts.gif" alt="Cute hearts" class="side-gif">
+  <img src="jone.png" alt="Valentine photo" class="side-image">
+
+  <div class="card" id="card">
+    <h1 id="title">Aino, will you be my Valentine?</h1>
+
+    <!-- ✅ LISÄTTY: subtitle + hint, jotta JS ei kaadu -->
+    <p id="subtitle"></p>
+
+    <div class="buttons">
+      <button class="yes" id="yesBtn">Yes 💕</button>
+      <button class="no" id="noBtn">No 🙈</button>
+    </div>
+
+    <div class="answer" id="answer"></div>
+    <div class="hint" id="hint"> 😅</div>
+  </div>
+
+  <audio id="music" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4c8f68c9f6.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="music" id="musicToggle" title="Toggle music">
+    <div class="musicDot" id="musicDot"></div>
+    <div id="musicLabel">Tap for music</div>
+  </div>
+
+  <script>
+    // Personalize with URL param: ?name=Anna
+    const params = new URLSearchParams(window.location.search);
+    const name = (params.get("name") || "").trim().slice(0, 40);
+
+    const subtitle = document.getElementById("subtitle");
+    if (name) {
+      subtitle.textContent = `Dear ${name}, will you be my Valentine? 💘`;
+    }
+
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn  = document.getElementById("noBtn");
+    const answer = document.getElementById("answer");
+    const hint   = document.getElementById("hint");
+
+    // Turvacheck: jos jokin puuttuu, älä kaadu
+    if (!yesBtn || !noBtn || !answer || !hint || !subtitle) {
+      console.error("Missing element(s):", { yesBtn, noBtn, answer, hint, subtitle });
+    }
+
+    let yesScale = 1;
+
+    // Floating hearts (continuous after YES)
+    let heartsStarted = false;
+    function startHearts(){
+      if (heartsStarted) return;
+      heartsStarted = true;
+
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.textContent = Math.random() > 0.5 ? "💖" : "💗";
+        heart.style.left = (Math.random() * 100).toFixed(2) + "vw";
+        heart.style.animationDuration = (4 + Math.random() * 3).toFixed(2) + "s";
+        heart.style.fontSize = (16 + Math.random() * 18).toFixed(0) + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 8000);
+      }, 260);
+    }
+
+    // YES click
+    yesBtn.addEventListener("click", () => {
+      console.log("YES clicked");
+      answer.style.display = "block";
+      answer.textContent = "YAY!!! 💖💖💖 You just made me the happiest person alive!";
+      noBtn.style.display = "none";
+      hint.style.display = "none";
+      yesBtn.style.transform = "scale(1.25)";
+      startHearts();
+    });
+
+    // NO runs away + YES grows
+    function moveNoButton() {
+      const x = (Math.random() * 220) - 110;
+      const y = (Math.random() * 140) - 70;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+      yesScale = Math.min(2.1, yesScale + 0.14);
+      yesBtn.style.transform = `scale(${yesScale})`;
+    }
+
+    noBtn.addEventListener("mouseover", moveNoButton);
+    noBtn.addEventListener("click", moveNoButton);
+
+    // Music toggle
+    const music = document.getElementById("music");
+    const toggle = document.getElementById("musicToggle");
+    const label = document.getElementById("musicLabel");
+    const dot = document.getElementById("musicDot");
+    let playing = false;
+
+    toggle.addEventListener("click", async () => {
+      try {
+        if (!playing) {
+          await music.play();
+          playing = true;
+          label.textContent = "Music on";
+          dot.classList.add("playing");
+        } else {
+          music.pause();
+          playing = false;
+          label.textContent = "Music off";
+          dot.classList.remove("playing");
+        }
+      } catch {
+        label.textContent = "Tap again to play";
+      }
+    });
+  </script>
+</body>
+</html>
