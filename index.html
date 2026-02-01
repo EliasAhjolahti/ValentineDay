@@ -203,17 +203,7 @@
     <div class="hint" id="hint"> 😅</div>
   </div>
 
-  <audio id="music" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4c8f68c9f6.mp3" type="audio/mpeg">
-  </audio>
-
-  <div class="music" id="musicToggle" title="Toggle music">
-    <div class="musicDot" id="musicDot"></div>
-    <div id="musicLabel">Tap for music</div>
-  </div>
-
   <script>
-    // Personalize with URL param: ?name=Anna
     const params = new URLSearchParams(window.location.search);
     const name = (params.get("name") || "").trim().slice(0, 40);
 
@@ -276,30 +266,6 @@
     noBtn.addEventListener("mouseover", moveNoButton);
     noBtn.addEventListener("click", moveNoButton);
 
-    // Music toggle
-    const music = document.getElementById("music");
-    const toggle = document.getElementById("musicToggle");
-    const label = document.getElementById("musicLabel");
-    const dot = document.getElementById("musicDot");
-    let playing = false;
-
-    toggle.addEventListener("click", async () => {
-      try {
-        if (!playing) {
-          await music.play();
-          playing = true;
-          label.textContent = "Music on";
-          dot.classList.add("playing");
-        } else {
-          music.pause();
-          playing = false;
-          label.textContent = "Music off";
-          dot.classList.remove("playing");
-        }
-      } catch {
-        label.textContent = "Tap again to play";
-      }
-    });
   </script>
 </body>
 </html>
