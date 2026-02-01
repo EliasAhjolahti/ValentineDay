@@ -108,42 +108,41 @@
     }
 
 
-    .side-gif{
-      position: fixed;
-      left: 300px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 200px;
-      max-width: 35vw;
-      border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-      z-index: 1;
-    }
+ .side-gif, .side-image {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 180px; /* Slightly smaller to prevent crowding */
+  max-width: 20vw; 
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  z-index: 1;
+  transition: all 0.3s ease;
+}
 
-    .side-image{
-      position: fixed;
-      right: 300px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 220px;
-      max-width: 40vw;
-      border-radius: 24px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.45);
-      border: 2px solid rgba(255,255,255,0.25);
-      z-index: 1;
-      opacity: 0.95;
-    }
+/* Desktop positions */
+.side-gif { left: 5%; }
+.side-image { right: 5%; }
 
-    @media (max-width: 900px){
-      .side-gif, .side-image{ 
-        position: static;
-        transform: none;
-        width: 140px;
-        margin: 10px auto;
-        display: inline-block;
+/* ✅ MOBILE FIX: This triggers when the screen is narrow */
+@media (max-width: 1100px) {
+  .side-gif, .side-image {
+    position: static; /* Removes them from the "floating" position */
+    transform: none;
+    width: 140px;
+    max-width: 40%;
+    margin: 10px auto;
+    display: inline-block; /* Allows them to sit side-by-side if they fit */
+  }
 
-       }
-    }
+  /* Make a container for images inside the card if you want them visible on mobile */
+  .img-container-mobile {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+}
 
     /* ✅ Hearts */
     .heart{
@@ -207,7 +206,7 @@
     </div>
 
     <div class="answer" id="answer"></div>
-    <div class="hint" id="hint"> 😅</div>
+    <div class="hint" id="hint"> </div>
   </div>
 
   <script>
