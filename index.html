@@ -27,16 +27,17 @@
       background: radial-gradient(circle at top, var(--bg1), var(--bg2));
       font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
       color:var(--txt);
-      overflow:hidden;
-      padding: 26px;
+      overflow-x:hidden;
+      padding: 40px 20px;
     }
 
     .card{
       position:relative;
-      width:min(780px, 94vw);
-      min-height: 440px;
-      padding: 56px 54px;
-      border-radius: 30px;
+      width:min(600px, 94vw);
+      /* Made the card longer */
+      min-height: 700px; 
+      padding: 60px 40px;
+      border-radius: 40px;
       background: var(--glass);
       border: 1px solid var(--glassBorder);
       backdrop-filter: blur(16px);
@@ -44,19 +45,40 @@
       text-align:center;
       z-index:2;
       animation: fadeUp 0.9s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Top Image Styling */
+    .top-img {
+      width: 180px;
+      height: auto;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+
+    /* Bottom Image Styling */
+    .bottom-img {
+      width: 220px;
+      height: auto;
+      border-radius: 20px;
+      margin-top: 30px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
 
     h1{
-      margin: 6px 0 10px;
-      font-size: clamp(34px, 3.4vw, 54px);
-      line-height: 1.05;
+      margin: 0;
+      font-size: clamp(28px, 3vw, 48px);
+      line-height: 1.1;
       text-shadow: 0 10px 30px rgba(0,0,0,0.25);
     }
 
     p{
-      margin: 0 auto 26px;
+      margin: 0;
       max-width: 52ch;
-      font-size: clamp(18px, 1.6vw, 24px);
+      font-size: clamp(18px, 1.6vw, 22px);
       line-height: 1.45;
       opacity: 0.95;
     }
@@ -67,17 +89,18 @@
       gap: 16px;
       flex-wrap: wrap;
       margin-top: 10px;
+      z-index: 10;
     }
 
     button{
       border:none;
       border-radius: 999px;
-      padding: 16px 34px;
+      padding: 16px 40px;
       font-size: 18px;
+      font-weight: bold;
       cursor:pointer;
       transition: transform 0.20s ease, box-shadow 0.20s ease, background 0.20s ease;
       user-select:none;
-      will-change: transform;
     }
 
     button:hover{
@@ -95,57 +118,15 @@
     }
 
     .answer{
-      margin-top: 28px;
+      margin-top: 20px;
       display:none;
       font-size: clamp(20px, 2.0vw, 28px);
       animation: pop 0.55s ease;
+      color: #fff;
+      font-weight: bold;
     }
 
-    .hint{
-      margin-top: 14px;
-      font-size: 14px;
-      opacity: 0.85;
-    }
-
-
-/* Base styles for the images */
-.side-gif, .side-image {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 180px; /* Slightly smaller to prevent crowding */
-  max-width: 20vw; 
-  border-radius: 20px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-  z-index: 1;
-  transition: all 0.3s ease;
-}
-
-/* Desktop positions */
-.side-gif { left: 5%; }
-.side-image { right: 5%; }
-
-/* ✅ MOBILE FIX: This triggers when the screen is narrow */
-@media (max-width: 1100px) {
-  .side-gif, .side-image {
-    position: static; /* Removes them from the "floating" position */
-    transform: none;
-    width: 140px;
-    max-width: 40%;
-    margin: 10px auto;
-    display: inline-block; /* Allows them to sit side-by-side if they fit */
-  }
-
-  /* Make a container for images inside the card if you want them visible on mobile */
-  .img-container-mobile {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 15px;
-  }
-}
-
-    /* ✅ Hearts */
+    /* Hearts */
     .heart{
       position: fixed;
       bottom: -40px;
@@ -154,7 +135,6 @@
       filter: drop-shadow(0 8px 14px rgba(0,0,0,0.25));
       pointer-events: none;
       z-index: 9999;
-      will-change: transform, opacity;
     }
 
     @keyframes floatUp{
@@ -169,40 +149,21 @@
       0% { opacity:0; transform: scale(0.88); }
       100% { opacity:1; transform: scale(1); }
     }
-    @keyframes pulse{
-      0%{ box-shadow: 0 0 0 0 rgba(255,255,255,0.40); }
-      100%{ box-shadow: 0 0 0 12px rgba(255,255,255,0.00); }
-    }
 
     @media (max-width: 520px){
-      body{ padding: 18px; }
-      .card{
-        padding: 44px 22px;
-        min-height: 420px;
-        border-radius: 26px;
-      }
-      button{
-        width: 100%;
-        max-width: 320px;
-        padding: 16px 18px;
-      }
-      .music{ right: 12px; bottom: 12px; }
+      .card { padding: 40px 20px; min-height: 600px; }
+      button { width: 100%; }
     }
   </style>
 </head>
 
 <body>
-<body>
   <div class="card" id="card">
     
-    <div class="img-container-mobile">
-        <img src="assat.png" alt="Cute hearts" class="side-gif">
-        <img src="" alt="Valentine photo" class="side-image">
-    </div>
+    <img src="Rose.jpg" alt="Cute hearts" class="top-img">
 
     <h1 id="title">Aino, will you be my Valentine?</h1>
 
-    <!-- ✅ LISÄTTY: subtitle + hint, jotta JS ei kaadu -->
     <p id="subtitle"></p>
 
     <div class="buttons">
@@ -211,6 +172,9 @@
     </div>
 
     <div class="answer" id="answer"></div>
+
+    <img src="valentine-photo.png" alt="Valentine photo" class="bottom-img">
+
     <div class="hint" id="hint"> </div>
   </div>
 
@@ -228,19 +192,12 @@
     const answer = document.getElementById("answer");
     const hint   = document.getElementById("hint");
 
-    // Turvacheck: jos jokin puuttuu, älä kaadu
-    if (!yesBtn || !noBtn || !answer || !hint || !subtitle) {
-      console.error("Missing element(s):", { yesBtn, noBtn, answer, hint, subtitle });
-    }
-
     let yesScale = 1;
-
-    // Floating hearts (continuous after YES)
     let heartsStarted = false;
+
     function startHearts(){
       if (heartsStarted) return;
       heartsStarted = true;
-
       setInterval(() => {
         const heart = document.createElement("div");
         heart.className = "heart";
@@ -253,30 +210,25 @@
       }, 260);
     }
 
-    // YES click
     yesBtn.addEventListener("click", () => {
-      console.log("YES clicked");
       answer.style.display = "block";
-      answer.textContent = "YAY!!! 💖💖💖 You just made me the happiest person alive!";
+      answer.textContent = " Jee, saat 10 jalkahierontaa ilman narinaa💖💖💖 ";
       noBtn.style.display = "none";
       hint.style.display = "none";
       yesBtn.style.transform = "scale(1.25)";
       startHearts();
     });
 
-    // NO runs away + YES grows
     function moveNoButton() {
-      const x = (Math.random() * 220) - 110;
-      const y = (Math.random() * 140) - 70;
+      const x = (Math.random() * 160) - 80;
+      const y = (Math.random() * 100) - 50;
       noBtn.style.transform = `translate(${x}px, ${y}px)`;
-
       yesScale = Math.min(2.1, yesScale + 0.14);
       yesBtn.style.transform = `scale(${yesScale})`;
     }
 
     noBtn.addEventListener("mouseover", moveNoButton);
     noBtn.addEventListener("click", moveNoButton);
-
   </script>
 </body>
 </html>
